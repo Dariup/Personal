@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Online</title>
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Fonte legível e interface acessível -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: #2d2d2d;
+            color: white;
+            padding: 1rem;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin: 1rem 0;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            margin-left: 320px;
+            padding: 2rem;
+            width: calc(100% - 320px);
+        }
+
+        header, footer {
+            background-color: #3d3d3d;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .search-section {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+
+        .input-container input {
+            border: none;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .input-container .search-icon {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            color: #777;
+        }
+
+        /* Estilizando o botão com design moderno */
+        .search-btn {
+            background-color: rgba(0, 0, 0, 0.7); /* Preto com transparência */
+            color: white; /* Texto branco */
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 30px; /* Bordas arredondadas */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9); /* Muda o preto para menos transparente no hover */
+            transform: scale(1.05); /* Efeito de "aumentar" ao passar o mouse */
+        }
+
+        #resultados-pesquisa {
+            margin: 2rem;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            background-color: #3d3d3d;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding-bottom: 2rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .input-container input {
+                font-size: 1.3rem;
+            }
+
+            .search-btn {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <ul id="lista-exercicios"></ul>
+        </aside>
+
+        <div class="main-content">
+            <header>
+                <h1>Personal Online</h1>
+            </header>
+
+            <section class="search-section">
+                <form id="form-pesquisa" onsubmit="event.preventDefault(); pesquisar();">
+                    <div class="input-container">
+                        <i class="fas fa-search search-icon"></i> <!-- Ícone de lupa -->
+                        <input type="text" placeholder="Pesquise pelo exercício" id="campo-pesquisa" oninput="pesquisar()">
+                    </div>
+                    <button type="submit" class="search-btn">Pesquisar</button>
+                </form>
+            </section>
+
+            <section id="resultados-pesquisa"></section>
+
+            <footer>
+                <p>2024 - Personal Online. Todos os direitos reservados. Site criado por <strong>Dariu T. Pereira</strong>.</p>
+                <p>Entre em contato pelo email: <a href="dariu.pk@gmail.com">dariu.pk@gmail.com</a></p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="dados.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listaExercicios = document.getElementById('lista-exercicios');
+            
+            dados.forEach(exercicio => {
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = exercicio.Link;
+                link.textContent = exercicio.Titulo;
+                link.target = "_blank";
+                li.appendChild(link);
+                listaExercicios.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
